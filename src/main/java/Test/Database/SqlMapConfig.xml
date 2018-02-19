@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+
+<configuration>
+
+    <!-- Runtime시 mybatis의 행위 조정을 위한 설정 -->
+    <settings>
+        <!-- Default Executor 설정 -->
+        <!-- SIMPLE(기본설정), REUSE(PreparedStatement를 재사용), BATCH(구문을 재사용, 수정을 배치처리) -->
+        <setting name="defaultExecutorType" value="SIMPLE" />
+        <setting name="useColumnLabel" value="true"/>
+    </settings>
+
+    <!-- VO 등록
+    <typeAliases>
+        <typeAlias alias="member" type="se.dku.simple.vo.Member" />
+        <typeAlias alias="locker" type="se.dku.simple.vo.Locker" />
+    </typeAliases> -->
+</configuration>

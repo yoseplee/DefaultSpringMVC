@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/mvc"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xmlns:beans="http://www.springframework.org/schema/beans"
+             xmlns:tx="http://www.springframework.org/schema/tx"
+             xsi:schemaLocation="http://www.springframework.org/schema/mvc
+                                http://www.springframework.org/schema/mvc/spring-mvc.xsd
+		                        http://www.springframework.org/schema/beans
+		                        http://www.springframework.org/schema/beans/spring-beans.xsd
+		                        http://www.springframework.org/schema/tx
+		                        http://www.springframework.org/schema/tx/spring-tx-3.1.xsd">
+
+    <beans:bean id="dataSource" class="org.springframework.jdbc.datasource.SimpleDriverDataSource">
+        <beans:property name="driverClass" value="org.mariadb.jdbc.Driver"/>
+        <beans:property name="url" value="jdbc:mariadb://127.0.0.1:3306/dementia"/>
+        <beans:property name="username" value="root"/>
+        <beans:property name="password" value="nif"/>
+    </beans:bean>
+
+    <!-- sqlSessionFactory 설정 -->
+    <beans:bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <beans:property name="dataSource" ref="dataSource"/>
+        <!-- MyBatis 설정 파일 위치 지정 -->
+        <beans:property name="configLocation" value="classpath:Test/Database/SqlMapConfig.xml"/>
+        <!-- SQL 파일 위치 지정 -->
+        <beans:property name="mapperLocations" value="classpath:Test/Database/sql.*.xml"/>
+    </beans:bean>
+
+    <!-- sqlSession 설정 -->
+    <beans:bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
+        <beans:constructor-arg index="0" ref="sqlSessionFactory"/>
+    </beans:bean>
+
+    <beans:bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <beans:property name="dataSource" ref="dataSource"/>
+    </beans:bean>
+
+    <!-- Annotation기반의 트랜잭션 사용 -->
+    <tx:annotation-driven transaction-manager="transactionManager"/>
+</beans:beans>

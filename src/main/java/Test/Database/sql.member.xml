@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- Mapper 설정 -->
+<mapper namespace="Member">
+	<!-- Query -->
+	<select id="GetMemberInfo" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		SELECT * FROM member 
+		WHERE userKey = #{userKey}
+	</select>
+
+	<insert id="Insert" parameterType="java.util.HashMap">
+		INSERT INTO member SET id = #{id}, pw = #{pw}, name = #{name};
+	</insert>
+</mapper>
